@@ -1,379 +1,392 @@
-using ETModel;
+using ET;
+using ProtoBuf;
 using System.Collections.Generic;
-namespace ETModel
+namespace ET
 {
 /// <summary>
 /// 传送unit
 /// </summary>
 	[Message(InnerOpcode.M2M_TrasferUnitRequest)]
-	public partial class M2M_TrasferUnitRequest: IRequest
+	[ProtoContract]
+	public partial class M2M_TrasferUnitRequest: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public Unit Unit { get; set; }
 
 	}
 
 	[Message(InnerOpcode.M2M_TrasferUnitResponse)]
-	public partial class M2M_TrasferUnitResponse: IResponse
+	[ProtoContract]
+	public partial class M2M_TrasferUnitResponse: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
+		[ProtoMember(1)]
 		public long InstanceId { get; set; }
 
 	}
 
 	[Message(InnerOpcode.M2A_Reload)]
-	public partial class M2A_Reload: IRequest
+	[ProtoContract]
+	public partial class M2A_Reload: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
 
 	}
 
 	[Message(InnerOpcode.A2M_Reload)]
-	public partial class A2M_Reload: IResponse
+	[ProtoContract]
+	public partial class A2M_Reload: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
 	}
 
 	[Message(InnerOpcode.G2G_LockRequest)]
-	public partial class G2G_LockRequest: IRequest
+	[ProtoContract]
+	public partial class G2G_LockRequest: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public long Id { get; set; }
 
+		[ProtoMember(2)]
 		public string Address { get; set; }
 
 	}
 
 	[Message(InnerOpcode.G2G_LockResponse)]
-	public partial class G2G_LockResponse: IResponse
+	[ProtoContract]
+	public partial class G2G_LockResponse: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
 	}
 
 	[Message(InnerOpcode.G2G_LockReleaseRequest)]
-	public partial class G2G_LockReleaseRequest: IRequest
+	[ProtoContract]
+	public partial class G2G_LockReleaseRequest: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public long Id { get; set; }
 
+		[ProtoMember(2)]
 		public string Address { get; set; }
 
 	}
 
 	[Message(InnerOpcode.G2G_LockReleaseResponse)]
-	public partial class G2G_LockReleaseResponse: IResponse
+	[ProtoContract]
+	public partial class G2G_LockReleaseResponse: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
 		public string Message { get; set; }
-
-	}
-
-	[Message(InnerOpcode.DBSaveRequest)]
-	public partial class DBSaveRequest: IRequest
-	{
-		public int RpcId { get; set; }
-
-		public string CollectionName { get; set; }
-
-		public ComponentWithId Component { get; set; }
-
-	}
-
-	[Message(InnerOpcode.DBSaveBatchResponse)]
-	public partial class DBSaveBatchResponse: IResponse
-	{
-		public int RpcId { get; set; }
-
-		public int Error { get; set; }
-
-		public string Message { get; set; }
-
-	}
-
-	[Message(InnerOpcode.DBSaveBatchRequest)]
-	public partial class DBSaveBatchRequest: IRequest
-	{
-		public int RpcId { get; set; }
-
-		public string CollectionName { get; set; }
-
-		public List<ComponentWithId> Components = new List<ComponentWithId>();
-
-	}
-
-	[Message(InnerOpcode.DBSaveResponse)]
-	public partial class DBSaveResponse: IResponse
-	{
-		public int RpcId { get; set; }
-
-		public int Error { get; set; }
-
-		public string Message { get; set; }
-
-	}
-
-	[Message(InnerOpcode.DBQueryRequest)]
-	public partial class DBQueryRequest: IRequest
-	{
-		public int RpcId { get; set; }
-
-		public long Id { get; set; }
-
-		public string CollectionName { get; set; }
-
-	}
-
-	[Message(InnerOpcode.DBQueryResponse)]
-	public partial class DBQueryResponse: IResponse
-	{
-		public int RpcId { get; set; }
-
-		public int Error { get; set; }
-
-		public string Message { get; set; }
-
-		public ComponentWithId Component { get; set; }
-
-	}
-
-	[Message(InnerOpcode.DBQueryBatchRequest)]
-	public partial class DBQueryBatchRequest: IRequest
-	{
-		public int RpcId { get; set; }
-
-		public string CollectionName { get; set; }
-
-		public List<long> IdList = new List<long>();
-
-	}
-
-	[Message(InnerOpcode.DBQueryBatchResponse)]
-	public partial class DBQueryBatchResponse: IResponse
-	{
-		public int RpcId { get; set; }
-
-		public int Error { get; set; }
-
-		public string Message { get; set; }
-
-		public List<ComponentWithId> Components = new List<ComponentWithId>();
-
-	}
-
-	[Message(InnerOpcode.DBQueryJsonRequest)]
-	public partial class DBQueryJsonRequest: IRequest
-	{
-		public int RpcId { get; set; }
-
-		public string CollectionName { get; set; }
-
-		public string Json { get; set; }
-
-	}
-
-	[Message(InnerOpcode.DBQueryJsonResponse)]
-	public partial class DBQueryJsonResponse: IResponse
-	{
-		public int RpcId { get; set; }
-
-		public int Error { get; set; }
-
-		public string Message { get; set; }
-
-		public List<ComponentWithId> Components = new List<ComponentWithId>();
 
 	}
 
 	[Message(InnerOpcode.ObjectAddRequest)]
-	public partial class ObjectAddRequest: IRequest
+	[ProtoContract]
+	public partial class ObjectAddRequest: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public long Key { get; set; }
 
+		[ProtoMember(2)]
 		public long InstanceId { get; set; }
 
 	}
 
 	[Message(InnerOpcode.ObjectAddResponse)]
-	public partial class ObjectAddResponse: IResponse
+	[ProtoContract]
+	public partial class ObjectAddResponse: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
-		public string Message { get; set; }
-
-	}
-
-	[Message(InnerOpcode.ObjectRemoveRequest)]
-	public partial class ObjectRemoveRequest: IRequest
-	{
-		public int RpcId { get; set; }
-
-		public long Key { get; set; }
-
-	}
-
-	[Message(InnerOpcode.ObjectRemoveResponse)]
-	public partial class ObjectRemoveResponse: IResponse
-	{
-		public int RpcId { get; set; }
-
-		public int Error { get; set; }
-
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
 	}
 
 	[Message(InnerOpcode.ObjectLockRequest)]
-	public partial class ObjectLockRequest: IRequest
+	[ProtoContract]
+	public partial class ObjectLockRequest: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public long Key { get; set; }
 
+		[ProtoMember(2)]
 		public long InstanceId { get; set; }
 
+		[ProtoMember(3)]
 		public int Time { get; set; }
 
 	}
 
 	[Message(InnerOpcode.ObjectLockResponse)]
-	public partial class ObjectLockResponse: IResponse
+	[ProtoContract]
+	public partial class ObjectLockResponse: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
 	}
 
 	[Message(InnerOpcode.ObjectUnLockRequest)]
-	public partial class ObjectUnLockRequest: IRequest
+	[ProtoContract]
+	public partial class ObjectUnLockRequest: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public long Key { get; set; }
 
+		[ProtoMember(2)]
 		public long OldInstanceId { get; set; }
 
+		[ProtoMember(3)]
 		public long InstanceId { get; set; }
 
 	}
 
 	[Message(InnerOpcode.ObjectUnLockResponse)]
-	public partial class ObjectUnLockResponse: IResponse
+	[ProtoContract]
+	public partial class ObjectUnLockResponse: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(InnerOpcode.ObjectRemoveRequest)]
+	[ProtoContract]
+	public partial class ObjectRemoveRequest: IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public long Key { get; set; }
+
+	}
+
+	[Message(InnerOpcode.ObjectRemoveResponse)]
+	[ProtoContract]
+	public partial class ObjectRemoveResponse: IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
 	}
 
 	[Message(InnerOpcode.ObjectGetRequest)]
-	public partial class ObjectGetRequest: IRequest
+	[ProtoContract]
+	public partial class ObjectGetRequest: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public long Key { get; set; }
 
 	}
 
 	[Message(InnerOpcode.ObjectGetResponse)]
-	public partial class ObjectGetResponse: IResponse
+	[ProtoContract]
+	public partial class ObjectGetResponse: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
+		[ProtoMember(1)]
 		public long InstanceId { get; set; }
 
 	}
 
 	[Message(InnerOpcode.R2G_GetLoginKey)]
-	public partial class R2G_GetLoginKey: IRequest
+	[ProtoContract]
+	public partial class R2G_GetLoginKey: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public string Account { get; set; }
 
 	}
 
 	[Message(InnerOpcode.G2R_GetLoginKey)]
-	public partial class G2R_GetLoginKey: IResponse
+	[ProtoContract]
+	public partial class G2R_GetLoginKey: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
+		[ProtoMember(1)]
 		public long Key { get; set; }
+
+		[ProtoMember(2)]
+		public long GateId { get; set; }
 
 	}
 
 	[Message(InnerOpcode.G2M_CreateUnit)]
-	public partial class G2M_CreateUnit: IRequest
+	[ProtoContract]
+	public partial class G2M_CreateUnit: IActorRequest
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
 		public long PlayerId { get; set; }
 
+		[ProtoMember(2)]
 		public long GateSessionId { get; set; }
 
 	}
 
 	[Message(InnerOpcode.M2G_CreateUnit)]
-	public partial class M2G_CreateUnit: IResponse
+	[ProtoContract]
+	public partial class M2G_CreateUnit: IActorResponse
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(91)]
 		public int Error { get; set; }
 
+		[ProtoMember(92)]
 		public string Message { get; set; }
 
 // 自己的unit id
 // 自己的unit id
+		[ProtoMember(1)]
 		public long UnitId { get; set; }
 
 // 所有的unit
 // 所有的unit
+		[ProtoMember(2)]
 		public List<UnitInfo> Units = new List<UnitInfo>();
 
 	}
 
 	[Message(InnerOpcode.G2M_SessionDisconnect)]
+	[ProtoContract]
 	public partial class G2M_SessionDisconnect: IActorLocationMessage
 	{
+		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
+		[ProtoMember(94)]
 		public long ActorId { get; set; }
 
 	}

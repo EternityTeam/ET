@@ -42,7 +42,7 @@ namespace MongoDB.Bson.Serialization
             .GetTypeInfo()
             .Assembly
             .GetType("System.Runtime.Serialization.FormatterServices")
-            .GetTypeInfo()
+            ?.GetTypeInfo()
             ?.GetMethod("GetUninitializedObject", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
 
         private static int __freezeNestingLevel = 0;
@@ -1563,7 +1563,7 @@ namespace MongoDB.Bson.Serialization
         {
             var interfaceType = interfacePropertyInfo.DeclaringType;
 
-#if NETSTANDARD1_5 || NETSTANDARD1_6
+#if NETSTANDARD1_5 || NETSTANDARD1_6 || NETCOREAPP
             var actualTypeInfo = actualType.GetTypeInfo();
             var bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
             var actualTypePropertyInfos = actualTypeInfo.GetMembers(bindingFlags).OfType<PropertyInfo>();
